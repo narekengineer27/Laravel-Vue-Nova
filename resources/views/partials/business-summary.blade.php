@@ -1,0 +1,1 @@
+<a href="{{config('nova.path')}}/business-summary/{{$id}}">View Summary</a>

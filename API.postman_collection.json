@@ -1,0 +1,549 @@
+{
+	"info": {
+		"_postman_id": "df2e396d-2552-4286-aefb-10fa967a17a9",
+		"name": "API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Ownership",
+					"item": [
+						{
+							"name": "Get methods",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{api_url}}/ownership-methods/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"ownership-methods",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"method\": \"email\",\n\t\"address\": \"{{ownership_request_email}}\",\n\t\"userInfo\": {}\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/request-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"request-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Phone request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"method\": \"phone\",\n\t\"address\": \"{{ownership_request_phone}}\",\n\t\"userInfo\": {}\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/request-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"request-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirm phone request",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"token\": \"{{confirm_request_token}}\"\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/confirm-ownership/{{business_id}}",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"confirm-ownership",
+										"{{business_id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Business",
+					"item": [
+						{
+							"name": "Reviews",
+							"item": [
+								{
+									"name": "Add Review",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"name": "Content-Type",
+												"type": "text",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n\t\"business_id\": \"{{business_id}}\",\n\t\"code\": \"5\",\n\t\"comment\": \"Fake comment\",\n\t\"photo\": \"data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=\"\n}"
+										},
+										"url": {
+											"raw": "{{api_url}}/business-reviews",
+											"host": [
+												"{{api_url}}"
+											],
+											"path": [
+												"business-reviews"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"_postman_isSubFolder": true
+						},
+						{
+							"name": "Get user-owned businesses",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{api_url}}/v1/user-owned-businesses",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"v1",
+										"user-owned-businesses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create business",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"Business Name\",\n\t\"lat\": -27.42,\n\t\"lng\": 153.02,\n\t\"category_id\": 1\n}"
+								},
+								"url": {
+									"raw": "{{api_url}}/v1/businesses",
+									"host": [
+										"{{api_url}}"
+									],
+									"path": [
+										"v1",
+										"businesses"
+									]
+								},
+								"description": "Create business using only the four mandatory fields"
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{auth_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "00b4a3fe-d105-4c1d-aa14-544dc4ac65e0",
+						"type": "text/javascript",
+						"exec": [
+							"const loginRequest = {",
+							"    url: pm.variables.get('api_url') + '/login',",
+							"    method: 'POST',",
+							"    header: 'Content-Type:application/json',",
+							"    body: {",
+							"        mode: 'application/json',",
+							"        raw: JSON.stringify({",
+							"            email: pm.variables.get('username'),",
+							"            password: pm.variables.get('password'),",
+							"        })",
+							"    }",
+							"};",
+							"",
+							"var authToken = pm.environment.get('auth_token');",
+							"",
+							"console.log('Current Auth Token: ', authToken);",
+							"",
+							"if (!authToken) {",
+							"    console.log('Request a token.', loginRequest);",
+							"",
+							"    pm.sendRequest(loginRequest, function (err, res) {",
+							"        console.log(err ? err : res.json());",
+							"        if (err === null) {",
+							"            var responseJson = res.json();",
+							"            ",
+							"            console.log('Saving the token.', responseJson.token);",
+							"            ",
+							"            pm.environment.set('auth_token', responseJson.token);",
+							"        }",
+							"    });",
+							"}"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "db9d3ddb-620f-4168-86b4-fd749a158187",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "postman@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "user",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{api_url}}/login",
+					"host": [
+						"{{api_url}}"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": " Toggle Business  Bookmark",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdhZDc3YzBhYmVhOWQ3OTY1YjMxZThiMzllYjYwNTUzZDk1MTJlYTQ4NzM0MzllMDA2NzZiZWJmY2RmOTQ5YmNhODZmZThiNTc1MGFlNGRhIn0.eyJhdWQiOiIxIiwianRpIjoiN2FkNzdjMGFiZWE5ZDc5NjViMzFlOGIzOWViNjA1NTNkOTUxMmVhNDg3MzQzOWUwMDY3NmJlYmZjZGY5NDliY2E4NmZlOGI1NzUwYWU0ZGEiLCJpYXQiOjE1NDg2MDM4MDYsIm5iZiI6MTU0ODYwMzgwNiwiZXhwIjoxNTgwMTM5ODA2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.NR9FO7srzT4gJQYGFeDI97YMMym5sd2F2RsbsUK6UN3Ya1cjce-lZcyU7l7WkYEzgknQu4EGIjCM-BoweqvnuzasqTfg-DiK3imjAFTc7Ptc1r4jmjxY3YKifIpl7Y_xrqZV-_kpgYxNFa0kM65ppBe1-1y7XmvDYY2_qlWlQay5iLKl7zL_h6QwbbiOGj-_cIaToYNx1tj8vbjELtpWa6gKLysPTKzOtJBKN7Rt_JJUgFh6IBJFmpbXWj2QHIwRoNqTNEB21b0TJmehXzLK044fwkckr2zq0jXndAUSYB3NQ3TqfVrkfJ3iSmFxMZI83Vl_Z0s72qM5yU8MT_OZxQfDHakUJr6U7ZO22Bheixsi1wcCWlav-JjukJUFJQjPruO3TfxgYu4uc2WtMHW5bjmxl3xGohZ1nBodCReegnQ8Ik_uQVfqCaFa1m_67nOIQg-qIL44Lu-w12dMLNpjSfusT8t1dEUaH31iKdw7J6x6yg1cYwIsYZF9n35n46xlsqmoKX9PioHZS3KeIUmKyqwv6oEqJ0PjaFFpM8BSZ-rom99BqrEn5BL4wQZz0-k84kPDf5D-S-VZGQbCakC_rruxU8WpgIjbS-IyvzWD-8olZLCsXFeu0K3ITQ4nftaLoV0GyykTe4G7gZaw9Uhppq7l97rexIm8hkWfKDgVk3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "uuid",
+							"value": "drdfg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/bookmark",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"bookmark"
+					]
+				},
+				"description": " Toggle Business  Bookmark"
+			},
+			"response": []
+		},
+		{
+			"name": "User Bookmarks List",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdhZDc3YzBhYmVhOWQ3OTY1YjMxZThiMzllYjYwNTUzZDk1MTJlYTQ4NzM0MzllMDA2NzZiZWJmY2RmOTQ5YmNhODZmZThiNTc1MGFlNGRhIn0.eyJhdWQiOiIxIiwianRpIjoiN2FkNzdjMGFiZWE5ZDc5NjViMzFlOGIzOWViNjA1NTNkOTUxMmVhNDg3MzQzOWUwMDY3NmJlYmZjZGY5NDliY2E4NmZlOGI1NzUwYWU0ZGEiLCJpYXQiOjE1NDg2MDM4MDYsIm5iZiI6MTU0ODYwMzgwNiwiZXhwIjoxNTgwMTM5ODA2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.NR9FO7srzT4gJQYGFeDI97YMMym5sd2F2RsbsUK6UN3Ya1cjce-lZcyU7l7WkYEzgknQu4EGIjCM-BoweqvnuzasqTfg-DiK3imjAFTc7Ptc1r4jmjxY3YKifIpl7Y_xrqZV-_kpgYxNFa0kM65ppBe1-1y7XmvDYY2_qlWlQay5iLKl7zL_h6QwbbiOGj-_cIaToYNx1tj8vbjELtpWa6gKLysPTKzOtJBKN7Rt_JJUgFh6IBJFmpbXWj2QHIwRoNqTNEB21b0TJmehXzLK044fwkckr2zq0jXndAUSYB3NQ3TqfVrkfJ3iSmFxMZI83Vl_Z0s72qM5yU8MT_OZxQfDHakUJr6U7ZO22Bheixsi1wcCWlav-JjukJUFJQjPruO3TfxgYu4uc2WtMHW5bjmxl3xGohZ1nBodCReegnQ8Ik_uQVfqCaFa1m_67nOIQg-qIL44Lu-w12dMLNpjSfusT8t1dEUaH31iKdw7J6x6yg1cYwIsYZF9n35n46xlsqmoKX9PioHZS3KeIUmKyqwv6oEqJ0PjaFFpM8BSZ-rom99BqrEn5BL4wQZz0-k84kPDf5D-S-VZGQbCakC_rruxU8WpgIjbS-IyvzWD-8olZLCsXFeu0K3ITQ4nftaLoV0GyykTe4G7gZaw9Uhppq7l97rexIm8hkWfKDgVk3A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/bookmark",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"bookmark"
+					]
+				},
+				"description": "User Bookmarks List"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjgxNWEwNzhhOGE0NDUyZTUxN2M2NzY3NTdhYTU2ZDA4NjEzNGZmNmI5NmE2MjU3ZjJiNTM2YjhkZGVhYmU0YWUxNjg5ODNhOTA1MzkzZjM0In0.eyJhdWQiOiIxIiwianRpIjoiODE1YTA3OGE4YTQ0NTJlNTE3YzY3Njc1N2FhNTZkMDg2MTM0ZmY2Yjk2YTYyNTdmMmI1MzZiOGRkZWFiZTRhZTE2ODk4M2E5MDUzOTNmMzQiLCJpYXQiOjE1NDg1NzUxMTcsIm5iZiI6MTU0ODU3NTExNywiZXhwIjoxNTgwMTExMTE3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZuFusdNTEeovYZgGqFSHZoxPyWYZPl3mWvhhZ7D5gHS91g_WrlhrWQYS-ggInaTB9PwaGyO-ZbiWXNp1lx7IcpnZAATCFGmU5kR51gS-p57O15YCySN3qEns3Xyh1HZgwnIC68i2dOwV8a_7WNQGNjPxQKZOoyuyLPJkXaKfY65E9Le11bQh4cMgMaQ2lYsdM3fCI5G3ubukcrkWcobSD4OztMX6Ofz8I2eCiQgf5UeifbTTnXqnWRMPWd6v_NSpQ6YnLOM-HslVnTOXfqwshU1OeYGGdAUnz9XAO9W7TIq-bcjZZudvF_54S5W2g4yBhZFesas3CQ8UqGvxaifGkKmOuorNYco4GtzRkRYCML5PAKkVD1EGqZvb37W45Mja8aWR6lEopO2QZ2siklJzqBD8-ahLkYLBktISI4nHtdh9qTVAGpD6FqgOu8rVPZvFi1r1aP9ETOVbork9yf-la694Hvp2MZz869UIurOYTerqf6ax2mP7T77t9YBuAAFVSWIQvA6zzso1GqSO80CFiu4GeoOMK-6V7GJ_7GtWc7mANoU6L7RWpHPadWuB_vt2nprng6QwcXt_jwsfopOgqWuvtuzhzOcPzM5V-7G0FuokoKHuskHV0vWpXKY5LxaOdBRvfmHrBsMo1k9xjHdkGZ_pcaAO-JbiyrKNb8qO0eY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8000/api/v1/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"v1",
+						"logout"
+					]
+				},
+				"description": "Logout"
+			},
+			"response": [
+				{
+					"name": "Logout",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8000/api/v1/logout",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"v1",
+								"logout"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Host",
+							"value": "localhost:8000"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jan 2019 00:42:17 +0000"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Jan 2019 00:42:17 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/7.2.7"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=UTF-8"
+						},
+						{
+							"key": "X-RateLimit-Limit",
+							"value": "60"
+						},
+						{
+							"key": "X-RateLimit-Remaining",
+							"value": "59"
+						}
+					],
+					"cookie": [],
+					"body": "You have been successfully logged out"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "3ce5a3bb-926d-40ef-becf-e4f63e910a50",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bff5023e-b043-4c0e-8334-8fbe59f431a2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "be6d8f8e-cc3b-44b2-b902-7aba0ad08828",
+			"key": "api_url",
+			"value": "http://app.local/api/v1",
+			"type": "string"
+		},
+		{
+			"id": "a9702848-06de-481d-b37f-60ed7681dcf8",
+			"key": "username",
+			"value": "postman@test.com",
+			"type": "string"
+		},
+		{
+			"id": "d65081b9-9662-4786-92b8-cd1eba11108c",
+			"key": "password",
+			"value": "user",
+			"type": "string"
+		},
+		{
+			"id": "a802c01d-eea6-46df-a689-8b42bf5a3c6d",
+			"key": "business_id",
+			"value": "342",
+			"type": "string"
+		},
+		{
+			"id": "2aa0c05e-8c3c-4125-b7fa-147a427dacaf",
+			"key": "ownership_request_email",
+			"value": "ownership-req@spambog.com",
+			"type": "string"
+		},
+		{
+			"id": "027a5633-5ad2-4bfe-bebc-c1d464db8afc",
+			"key": "ownership_request_phone",
+			"value": "+1 7837 000111",
+			"type": "string"
+		},
+		{
+			"id": "05d1f34b-c7cb-44ae-b84b-b4bbfcc7d0a2",
+			"key": "confirm_request_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

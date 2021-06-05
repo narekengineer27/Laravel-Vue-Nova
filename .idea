@@ -1,0 +1,72 @@
+d0asnas08s43
+
+.env
+SCOUT_ELASTIC_HOST=localhost:9200
+
+composer install
+art key:generate
+npm install 
+dev
+art passport:install --force
+art passport:client --personal
+
+dev error
+https://github.com/JeffreyWay/laravel-mix/issues/1072
+rm -rf node_modules
+rm package-lock.json yarn.lock
+npm cache clear --force
+npm install
+
+nova error
+https://github.com/laravel/nova-issues/issues/33
+cd ./nova
+npm i
+mv webpack.mix.js.dist webpack.mix.js
+npm run dev
+cd ../
+php artisan nova:publish
+
+
+///////////////////////////////////////////////////////
+// for api 
+art fresh
+
+mysql -u root -p api
+source database/sample.sql;
+
+curl -XDELETE 'localhost:9200/business*'
+curl -XDELETE 'localhost:9200/category*'
+art elastic:setup-indexes
+art update:business-score
+art business:fix-utf8
+art business:fix-html-entities
+art business:generate-geo
+art storage:link
+
+php artisan scout:import 'App\Models\Business'
+php artisan scout:import 'App\Models\BusinessAttribute'
+php artisan scout:import 'App\Models\BusinessReview'
+php artisan scout:import 'App\Models\BusinessPost'
+php artisan l5-swagger:generate
+
+//////////////////////////////////////////////////
+// api_20000
+art fresh
+curl -XDELETE 'localhost:9200/business*'
+curl -XDELETE 'localhost:9200/category*'
+art elastic:setup-indexes
+art update:business-score
+art business:fix-utf8
+art business:fix-html-entities
+art business:generate-geo
+art storage:link
+
+php artisan scout:import 'App\Models\Business'
+php artisan scout:import 'App\Models\BusinessAttribute'
+php artisan scout:import 'App\Models\BusinessReview'
+php artisan scout:import 'App\Models\BusinessPost'
+php artisan l5-swagger:generate
+
+
+curl -XPUT "http://localhost:9200/items_staging/_settings" -d '{ "index" : { "max_result_window" : 100000 } }'
+curl -XPUT "localhost:9200/business/_settings" -H "Content-Type: application/json" -d '{"index" : { "max_result_window" : 100000 }}' 

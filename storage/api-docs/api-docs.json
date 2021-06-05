@@ -1,0 +1,1365 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "APP API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/active-business-posts": {
+            "get": {
+                "summary": "Get active business posts for ID",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\ActiveBusinessPostsController::index",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "description": "Business ID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Data fetched successfully"
+                    },
+                    "422": {
+                        "description": "Validation failed."
+                    }
+                }
+            }
+        },
+        "/api/v1/login": {
+            "post": {
+                "summary": "Login to the system",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Authentication\\LoginController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "remember_me": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Access token information"
+                    }
+                }
+            }
+        },
+        "/api/v1/logout": {
+            "get": {
+                "summary": "Log out from the system / invalidate token",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Authentication\\LoginController::logout",
+                "responses": {
+                    "200": {
+                        "description": "Logout successfully"
+                    }
+                }
+            }
+        },
+        "/api/v1/register": {
+            "post": {
+                "summary": "register for the system",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Authentication\\RegistrationController::create",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Access token information"
+                    }
+                }
+            }
+        },
+        "/api/v1/email/verify/{id}": {
+            "get": {
+                "summary": "Post to email verification MUST contain the authorization bearer token in Headers. Simply, the User must be logged in to verify their identity.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Authentication\\VerificationController::verify",
+                "responses": {
+                    "200": {
+                        "description": "'verification': true"
+                    }
+                }
+            }
+        },
+        "/api/v1/sms/verify": {
+            "post": {
+                "summary": "Post a 5 digit verification PIN, Headers MUST contain the authorization bearer token.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\Authentication\\VerificationController::verifySms",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "verification_code": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object",
+                                "example": {
+                                    "verification_code": 24465
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "'verification': true"
+                    }
+                }
+            }
+        },
+        "/api/v1/bookmark/{id}": {
+            "get": {
+                "summary": "Display the specified resource.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessBioController::show",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "query",
+                        "description": "Business uuid",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Business bio"
+                    }
+                }
+            }
+        },
+        "/api/v1/bookmark": {
+            "put": {
+                "summary": "Updates a business bio",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessBioController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "Business ID",
+                                        "type": "string"
+                                    },
+                                    "bio": {
+                                        "description": "Business bio",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Toggle bookmark specified by ID for logged in user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::toggleBookmark",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "uuid": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Bookmark successfully created/deleted!"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-cover": {
+            "post": {
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessCoverController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "cover_image": {
+                                        "description": "File for business cover",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Status OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-feed/{businessId}": {
+            "get": {
+                "summary": "Get feed for business",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessFeedController::index",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "description": "ID of business",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FeedResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-hours/{business}": {
+            "put": {
+                "summary": "Update business hours",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessHoursController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "open_period_mins": {
+                                        "description": "Start time",
+                                        "type": "string"
+                                    },
+                                    "close_period_mins": {
+                                        "description": "End time",
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "description": "ID of business",
+                                        "type": "string"
+                                    },
+                                    "wd_0": {
+                                        "description": "Sunday",
+                                        "type": "string"
+                                    },
+                                    "wd_1": {
+                                        "description": "Monday",
+                                        "type": "string"
+                                    },
+                                    "wd_2": {
+                                        "description": "Tuesday",
+                                        "type": "string"
+                                    },
+                                    "wd_3": {
+                                        "description": "Wednesday",
+                                        "type": "string"
+                                    },
+                                    "wd_4": {
+                                        "description": "Thursday",
+                                        "type": "string"
+                                    },
+                                    "wd_5": {
+                                        "description": "Friday",
+                                        "type": "string"
+                                    },
+                                    "wd_6": {
+                                        "description": "Saturday",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "BusinessHoursResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-posts": {
+            "put": {
+                "summary": "Update business post by ID",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessPostsController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "id of business post",
+                                        "type": "string"
+                                    },
+                                    "business_id": {
+                                        "description": "id of business",
+                                        "type": "string"
+                                    },
+                                    "text": {
+                                        "description": "id of user",
+                                        "type": "string"
+                                    },
+                                    "photo": {
+                                        "description": "base64 encoded image",
+                                        "type": "string"
+                                    },
+                                    "expire_date": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Business post updated"
+                    },
+                    "400": {
+                        "description": "Invalid given data"
+                    },
+                    "404": {
+                        "description": "Business post not found"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Create business post",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessPostsController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "description": "UUID of business",
+                                        "type": "string"
+                                    },
+                                    "text": {
+                                        "description": "Post text",
+                                        "type": "string"
+                                    },
+                                    "photo": {
+                                        "description": "photo file",
+                                        "type": "string"
+                                    },
+                                    "expire_date": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "BusinessPostResource"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a business post",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessPostsController::destroy",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "id of business post",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Business Post Resource"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-posts/business/{$businessUuid}": {
+            "get": {
+                "summary": "Get all business posts for business",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessPostsController::forBusiness",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "description": "ID of business",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of Business Post"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-posts/{businessPostUuid}": {
+            "get": {
+                "summary": "Get individual business post",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessPostsController::show",
+                "responses": {
+                    "200": {
+                        "description": "Businesse Post"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-reviews/{business}": {
+            "post": {
+                "summary": "Create a business review",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessReviewsController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "description": "id of business",
+                                        "type": "string"
+                                    },
+                                    "score": {
+                                        "description": "Score",
+                                        "type": "int"
+                                    },
+                                    "comment": {
+                                        "description": "Review comment",
+                                        "type": "string"
+                                    },
+                                    "photo": {
+                                        "description": "image",
+                                        "type": "file"
+                                    },
+                                    "mode": {
+                                        "description": "Public or private entry.",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "BusinessPostResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-reviews/business/{businessUuid}": {
+            "get": {
+                "summary": "Get business review for a business based on UUID",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessReviewsController::show",
+                "parameters": [
+                    {
+                        "name": "businessUuid",
+                        "in": "query",
+                        "description": "Business UUID",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Business Review Resource"
+                    }
+                }
+            }
+        },
+        "/api/v1/business-search": {
+            "get": {
+                "summary": "search business by query",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessSearchController::index",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Latitude",
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Longitude",
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "radius",
+                        "in": "query",
+                        "description": "Radius in KM",
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Radius in KM",
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List businesses"
+                    }
+                }
+            }
+        },
+        "/api/v1/businesses/geo-json": {
+            "get": {
+                "summary": "Get GEO Json for businesses",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::geoJson",
+                "responses": {
+                    "200": {
+                        "description": "Geo Data JSON filestream"
+                    }
+                }
+            }
+        },
+        "/api/v1/businesses/{id}": {
+            "get": {
+                "summary": "Get a single business by ID",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::show",
+                "responses": {
+                    "200": {
+                        "description": "BusinessResource information"
+                    }
+                }
+            }
+        },
+        "/api/v1/businesses": {
+            "post": {
+                "summary": "Create a business",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "description": "latitude",
+                                        "type": "string"
+                                    },
+                                    "lng": {
+                                        "description": "longitude",
+                                        "type": "string"
+                                    },
+                                    "bio": {
+                                        "description": "business bio",
+                                        "type": "string"
+                                    },
+                                    "avatar": {
+                                        "description": "Avatar Image File",
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "description": "Category UUID",
+                                        "type": "string"
+                                    },
+                                    "cover_photo": {
+                                        "description": "Cover Photo Image File",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "BusinessResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/businesses/{business}": {
+            "put": {
+                "summary": "Update a business based on UUID passed.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "base 64 encoded avatar inage",
+                                        "type": "string"
+                                    },
+                                    "lat": {
+                                        "description": "latitude",
+                                        "type": "string"
+                                    },
+                                    "lng": {
+                                        "description": "longitude",
+                                        "type": "string"
+                                    },
+                                    "id": {
+                                        "description": "business uuid",
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "description": "Category Id",
+                                        "type": "integer"
+                                    },
+                                    "bio": {
+                                        "description": "business bio",
+                                        "type": "string"
+                                    },
+                                    "avatar": {
+                                        "description": "business avatar",
+                                        "type": "file"
+                                    },
+                                    "cover_photo": {
+                                        "description": "business cover photo",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Business updated"
+                    },
+                    "400": {
+                        "description": "Business not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/businesses/{businessId}": {
+            "delete": {
+                "summary": "Delete a business by ID",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\BusinessesController::delete",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id": {
+                                        "description": "business uuid",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Business updated"
+                    },
+                    "400": {
+                        "description": "Business not found"
+                    }
+                }
+            }
+        },
+        "/api/v1/categories": {
+            "get": {
+                "summary": "Returns all categories.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\CategoriesController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of all categories"
+                    }
+                }
+            }
+        },
+        "/api/v1/common": {
+            "get": {
+                "summary": "Get commonly used data, cached",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\CommonItemsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Common items"
+                    }
+                }
+            }
+        },
+        "/api/v1/discover": {
+            "get": {
+                "summary": "Get similar business based on id",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\DiscoverController::index",
+                "parameters": [
+                    {
+                        "name": "business_id",
+                        "in": "query",
+                        "description": "Business ID",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of businesses"
+                    }
+                }
+            }
+        },
+        "/api/v1/explore": {
+            "get": {
+                "summary": "explore business based on lat and lng",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\ExploreController::index",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Lat of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Lng of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Query",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of businesses"
+                    }
+                }
+            }
+        },
+        "/api/v1/image/face-detection": {
+            "post": {
+                "summary": "Detect faces from an image.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\FaceDetectionController::index",
+                "parameters": [
+                    {
+                        "name": "image",
+                        "in": "query",
+                        "description": "Image encoded in base64.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Image faces annotations."
+                    }
+                }
+            }
+        },
+        "/api/v1/feed": {
+            "get": {
+                "summary": "Get feed on lat and lng",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\FeedController::index",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Lat of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "query",
+                        "description": "Lng of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of FeedResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/map-presets": {
+            "get": {
+                "summary": "Get All Map Presets",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\MapPresetsController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of MapPresetResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/map-presets/search": {
+            "get": {
+                "summary": "Search Map Preset",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\MapPresetsController::search",
+                "parameters": [
+                    {
+                        "name": "map_preset_uuid",
+                        "in": "query",
+                        "description": "Map Preset UUID",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Latitude",
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "lon",
+                        "in": "query",
+                        "description": "Longitude",
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of BusinessResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/nearby-suggest": {
+            "get": {
+                "summary": "Get business close to lat/lon",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\NearbySuggestController::index",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "query",
+                        "description": "Lat of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    },
+                    {
+                        "name": "lon",
+                        "in": "query",
+                        "description": "Lng of location",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of BusinessResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/ownership-requests/{business}": {
+            "post": {
+                "summary": "Submit business ownership request.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\OwnershipController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business uuid": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ownership requests status - boolean"
+                    }
+                }
+            }
+        },
+        "/api/v1/ownership-requests/{ownershipRequest}/verify": {
+            "post": {
+                "summary": "Submit business ownership verification request.",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\OwnershipController::verify",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "token": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ownership requests status - boolean"
+                    }
+                }
+            }
+        },
+        "/api/v1/stickers": {
+            "get": {
+                "summary": "Get all stickers for category_id",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\StickersController::index",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "Category ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "Tags",
+                        "in": "query",
+                        "description": "tags",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of StickerResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/top-categories": {
+            "get": {
+                "summary": "Search top categories based on key",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\TopCategoriesSearchController::search",
+                "parameters": [
+                    {
+                        "name": "keyword",
+                        "in": "query",
+                        "description": "Keyword to search",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List results"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-owned-businesses": {
+            "get": {
+                "summary": "Get user owned businesses",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserBusinessesController::index",
+                "responses": {
+                    "200": {
+                        "description": "Businesses owned by authed user"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-categories": {
+            "get": {
+                "summary": "Get user categories",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserCategoriesController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of categories"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Attach a category to user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserCategoriesController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "user_id": {
+                                        "description": "User UUID",
+                                        "type": "string"
+                                    },
+                                    "category_id": {
+                                        "description": "Business UUID",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Category"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-feed": {
+            "get": {
+                "summary": "Get user feed",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserFeedController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of UserFeedResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-home-feed": {
+            "get": {
+                "summary": "Get user home feed",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserFeedController::homeFeed",
+                "responses": {
+                    "200": {
+                        "description": "List of user's home feed"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-businesses/optional-attributes": {
+            "get": {
+                "summary": "Get optional attributes",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserOptionalAttributesController::index",
+                "parameters": [
+                    {
+                        "name": "Tags",
+                        "in": "query",
+                        "description": "tags",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Businesses optional attirbutes"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update optional attribute",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserOptionalAttributesController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "description": "Business UUID",
+                                        "type": "string"
+                                    },
+                                    "optional_attribute_id": {
+                                        "description": "Optional Attribute UUID",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "Description",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Updated business optional attirbutes"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Save optional attribute",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserOptionalAttributesController::store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "description": "Business UUID",
+                                        "type": "string"
+                                    },
+                                    "optional_attribute_id": {
+                                        "description": "Optional Attribute UUID",
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "description": "Description",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created business optional attirbutes"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete optional attribute",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserOptionalAttributesController::delete",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "business_id": {
+                                        "description": "Business UUID",
+                                        "type": "string"
+                                    },
+                                    "optional_attribute_id": {
+                                        "description": "Optional Attribute UUID",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Deleted business optional attirbutes"
+                    }
+                }
+            }
+        },
+        "/api/v1/user-business-reviews/{userId}": {
+            "get": {
+                "summary": "Get business reviews made by a user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UserReviewsController::index",
+                "responses": {
+                    "200": {
+                        "description": "Common items"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/": {
+            "get": {
+                "summary": "Return current logged in user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UsersController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of UserResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/bookmarks": {
+            "get": {
+                "summary": "Return current user's bookmarks",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UsersController::bookmarks",
+                "responses": {
+                    "200": {
+                        "description": "List of BookmarkResource"
+                    }
+                }
+            }
+        },
+        "/api/v1/users": {
+            "put": {
+                "summary": "Update current logged in user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UsersController::update",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "description": "Name",
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "phone_number": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "age_group": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "gender": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "cover_photo": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "avatar_photo": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "bio": {
+                                        "description": "Update current logged in user",
+                                        "type": "string"
+                                    },
+                                    "allow_location_tracking": {
+                                        "description": "Update current logged in user",
+                                        "type": "boolean"
+                                    },
+                                    "post_publicly": {
+                                        "description": "Update current logged in user",
+                                        "type": "boolean"
+                                    },
+                                    "t_c_agreed": {
+                                        "description": "Update current logged in user",
+                                        "type": "boolean"
+                                    },
+                                    "profile_visible": {
+                                        "description": "Update current logged in user",
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "UserResource"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete current logged in user",
+                "operationId": "App\\Http\\Controllers\\API\\v1\\UsersController::destroy",
+                "responses": {
+                    "200": {
+                        "description": "bool"
+                    }
+                }
+            }
+        }
+    }
+}

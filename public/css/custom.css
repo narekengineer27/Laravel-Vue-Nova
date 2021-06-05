@@ -1,0 +1,208 @@
+.pagination li a{
+    text-decoration: none;
+}
+
+.pagination li span:first-child {
+    background-color: #dedaec;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: 400;
+    color: #585858;
+    opacity: .6;
+        display: block;
+}
+
+.pagination li a:last-child {
+    background-color: #ebe9f2;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-weight: 400;
+    color: #585858;
+    opacity: .6;
+    width: auto;
+    height: auto;
+}
+
+.pagination li span:first-child:hover, .pagination li a:last-child:hover {
+    background: #716aca;
+    color: #fff;
+}
+
+.pagination li.active span {
+    background-color: #716aca;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: #fff;
+    text-align: center;
+}
+.pagination li a {
+    background-color: #ebe9f2;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    text-align: center;
+    display: inline-block;
+}
+
+#ImageModal .modal-dialog {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    max-width: none;
+}
+
+ #ImageModal .modal-header {
+     border: 0px;
+ }
+
+ #ImageModal .modal-content {
+    height: auto;
+    min-height: 100%;
+    max-width: none;
+    border-radius: 0;
+ }
+
+#business-summary #stats {
+    display: none;
+}
+
+#business-summary .show_attributes {
+    display: none;
+}
+
+#business-summary #attributes{
+    display: none;
+}
+
+#business-summary #map {
+    height: 250px;
+}
+
+#business-summary .business-map .card {
+/*    width: 50%;*/
+}
+
+#business-summary #map .mapboxgl-ctrl-geocoder{
+    display: none;
+}
+
+#business-summary .content-none {
+    font-style: italic;
+}
+
+#business-summary table.attribute-table {
+    table-layout: auto;
+    width: 100%;
+}
+
+#business-summary .post-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 250px;
+}
+
+#business-summary .review-image {
+    background-repeat: no-repeat;
+    background-size: 250px;
+    background-position: center;
+    height: 150px;
+    margin: 20px 0;
+}
+
+#business-summary .card-items {
+    background-color: #bfbfbf;
+    border-radius: 8px;
+    margin: 0 6px 4px 0 !important;
+    padding: 4px 6px !important;
+    font-size: 0.9rem;
+}
+
+ #nova .dropdown-menu {
+    position: absolute;
+    z-index: 1000;
+    display: inherit;
+    padding: 0px;
+ }
+
+ #nova .dropdown-menu .list-reset{
+     margin-bottom: 0px;
+ }
+
+ .pl-search {
+     padding-left: 2.75rem !important;
+ }
+
+ table.table{
+     width: 100%;
+ }
+
+ /**
+ * Datatable
+ */
+.dataTables_wrapper table.dataTable.no-footer{
+    border-bottom: 0px;
+}
+.dataTables_wrapper .dataTables_length {
+  float: right;
+}
+.dataTables_wrapper .dataTables_processing {
+  z-index: 99;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  background-color: #c1b4b4;
+  color: #fff !important;
+  margin: 0 2px;
+  border-radius: 2px;
+  border: 0px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 12px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  background: #3a3a3a;
+  color: #fff !important;
+  border: 0px;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  border: 0px;
+  background: #3a3a3a;
+  color: #fff !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.first, .dataTables_wrapper .dataTables_paginate .paginate_button.next, .dataTables_wrapper .dataTables_paginate .paginate_button.previous, .dataTables_wrapper .dataTables_paginate .paginate_button.last {
+  background: transparent;
+  color: #c1b4b4 !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.first:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.next:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.previous:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.last:hover {
+  color: #3a3a3a !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.first.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.next.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.previous.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.last.disabled {
+  color: #c1b4b4 !important;
+}
+.dataTables_wrapper .view-all {
+  float: right;
+  margin-left: 15px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #c1b4b4;
+  color: #fff !important;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+.dataTables_wrapper .view-all.current {
+  background: #3a3a3a;
+  color: #fff !important;
+  border: 0px;
+}
+ /****************/
+
+
+.attribute-table td {
+	height: inherit;
+	padding: 0.25rem !important;
+}
